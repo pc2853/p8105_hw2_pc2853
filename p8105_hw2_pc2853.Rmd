@@ -71,5 +71,16 @@ health_data =
 This is a dataset manipulated from the original online "brfss_smart2010" data. In the cleaning process, the name of the data is converted propably. The variable "class, topic, question, sample size and everyting from lower limit confidence to Geolocation" are excluded from the dataset. Then the elements without a response from "excellent" to "poor" are excluded. In this case I used the command "spread" to set the elements "excellent" to "poor" as columns to revised the data. At the end the new variable combining "excellent" and "very good" as one is added. 
 
 
- 
+* There are `r nrow(distinct(health_data, locationabbr))` states included in the dataset with `r nrow(distinct(health_data, locationdesc))` different county/locations included in total. In this case, all 50 states in US are represented. The most observed state is shown in the chunk below, which is NJ that was observed 36 times in the data. 
+```{r}
+sort(table(health_data$locationabbr))[50]
+```
+
+
+* The median of the "excellent response value is `r median(health_data$excellent, na.rm = TRUE)`.
+
+* Below is the histogram of "excellent" response values of year 2002.
+```{r excellent_hist}
+
+```
 
