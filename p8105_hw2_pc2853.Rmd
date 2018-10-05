@@ -34,8 +34,22 @@ The dimension of the dataset is that it has `r dim(transit_data)[1]` of rows and
 
 ```{r}
 wheel_data = 
-  readxl::read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx") %>% 
+  readxl::read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", range = cell_cols(1:14)) %>% 
   janitor::clean_names() %>% 
-  select(dumpster:homes_powered)
+  filter(dumpster != is.na(TRUE)) %>% 
+  mutate(sports_ball_int = as.integer(sports_balls))
 ```
+
+The dataset "wheel_data" is a manipulated version of the original dataset "HealthyHarborWaterWheelTotals2018-7-28.xlsx", which is the newly updated one that already combined 2016&2017 data and has both the year and the month variables. The number of observation of this dataset is `r nrow(wheel_data)`. The variables are all related to each specific "dumpster" ordered by number, with date occured specified. Also, the precipitation in the dataset is seperated into different trash type, for example, "plastic bottles", "glass bottles", and "cigarette butts" and so on. 
+
+
+* The total precipitation in 2017 in weights is `r sum(subset(wheel_data, year == 2017)$weight_tons)` in tons. 
+* The median number of sports balls in a dumpster in 2016 is `r median(subset(wheel_data, year == 2016)$sports_balls)`.
+
+#Prblem 3
+
+```{r}
+
+```
+
 
