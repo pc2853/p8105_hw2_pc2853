@@ -1,0 +1,30 @@
+---
+title: "p8105_hw2_pc2853"
+author: "pengxuan chen"
+date: "October 5, 2018"
+output: github_document
+---
+
+```{r setup , include=FALSE}
+library(tidyverse)
+options(tibble.print_min = 5)
+
+
+```
+------------
+#Problem 1 
+```{r}
+transit_data = 
+  read.csv("./data/NYC_Transit_Subway_Entrance_And_Exit_Data.csv") %>% 
+  janitor::clean_names() %>% 
+  select(line, station_name, station_latitude , station_longitude, route1:route11, entry, vending, entrance_type, ada) %>% 
+  mutate(entry = recode(entry, "YES" = TRUE, "NO" = FALSE))
+
+```
+This is the description of the data. It is a manipulated version of the original data with cleaned names and selected variables which are "line, station_name, station_latitude , station_longitude, route1:route11, entry, vending, entrance_type, ada". I mutate the entry variable from character to logical. It is tidy enought in my perspective. I did not use "gather" to combine the routes served, since the columns are just spaces provided to show the routes served based on each station, and the columns cannot be the "key". If the routes columns are gathered, they will lost their correlation to the station in specific. But also there are some values in routes that are NA, as well as some values are blank. 
+The dimension of the dataset is that it has `r dim(transit_data)[1]` of rows and `r dim(transit_data)[2]` of columns.
+
+* The number of distinct stations are `r nrow(distinct(transit_data, line, station_name))`. 
+* The number of stations that are ada complient is `r sum(transit_data$ada == TRUE)`. 
+* The proportion of station entrances / exits without vending allow entrance is `r nrow(subset(transit_data, entry == TRUE & vending == "NO")) / nrow(subset(transit_data, vending == "NO"))`. 
+
