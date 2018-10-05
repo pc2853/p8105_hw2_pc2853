@@ -49,7 +49,7 @@ The dataset "wheel_data" is a manipulated version of the original dataset "Healt
 #Prblem 3
 
 ```{r p3setup, include=FALSE}
-install.packages("devtools")
+
 devtools::install_github("p8105/p8105.datasets")
 library(p8105.datasets)
 data(brfss_smart2010)
@@ -59,9 +59,17 @@ data(brfss_smart2010)
 health_data = 
   (brfss_smart2010) %>% 
   janitor::clean_names() %>%  
-  select(-class, -topic, -question, -sample_size)
-
+  select(-class, -topic, -question, -sample_size) %>% 
+  select(-confidence_limit_low:-geo_location) %>% 
+  filter(response == c("Excellent", "Very good", "Good", "Fair", "Poor")) %>% 
+  spread(key = response, value = data_value) %>% 
+  janitor::clean_names() %>% 
+  
+  mutate(excellent_or_very_good = excellent + very_good)
 ```
 
+This is a dataset manipulated from the original online "brfss_smart2010" data. In the cleaning process, the name of the data is converted propably. The variable "class, topic, question, sample size and everyting from lower limit confidence to Geolocation" are excluded from the dataset. Then the elements without a response from "excellent" to "poor" are excluded. In this case I used the command "spread" to set the elements "excellent" to "poor" as columns to revised the data. At the end the new variable combining "excellent" and "very good" as one is added. 
 
+
+ 
 
