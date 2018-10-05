@@ -79,8 +79,13 @@ sort(table(health_data$locationabbr))[50]
 
 * The median of the "excellent response value is `r median(health_data$excellent, na.rm = TRUE)`.
 
-* Below is the histogram of "excellent" response values of year 2002.
+* Below is the histogram of "excellent" response values of year 2002. The dataset is the subset from "health_data" that has the value from 2002 only. The x axis is chose to be the value of "excellent". The width of the bin is picked as default.
 ```{r excellent_hist}
+ggplot(subset(health_data, year == 2002), aes(x = excellent)) + geom_histogram()
+```
 
+* 
+```{r scatterplot}
+ggplot(subset(health_data, year == c(2002:2010) & locationdesc == c("NY - New York County", "NY - Queens County")), aes(x = year, y = excellent)) + geom_point()
 ```
 
