@@ -40,7 +40,7 @@ wheel_data =
   mutate(sports_ball_int = as.integer(sports_balls))
 ```
 
-The dataset "wheel_data" is a manipulated version of the original dataset "HealthyHarborWaterWheelTotals2018-7-28.xlsx", which is the newly updated one that already combined 2016&2017 data and has both the year and the month variables. The number of observation of this dataset is `r nrow(wheel_data)`. The variables are all related to each specific "dumpster" ordered by number, with date occured specified. Also, the precipitation in the dataset is seperated into different trash type, for example, "plastic bottles", "glass bottles", and "cigarette butts" and so on. 
+The dataset "wheel_data" is a manipulated version of the original dataset "HealthyHarborWaterWheelTotals2018-7-28.xlsx", which is the newly updated one that already combined 2016&2017 data and has both the year and the month variables. The data is cleaned via excluding the variable that is not correlated specific "dumpster". The number of observation of this dataset is `r nrow(wheel_data)`. The variables are all related to each specific "dumpster" ordered by number, with date occured specified. Also, the precipitation in the dataset is seperated into different trash type, for example, "plastic bottles", "glass bottles", and "cigarette butts" and so on.The variable "sports balls" has been turned into integar by creating a new variable called "sports_balls_int".
 
 
 * The total precipitation in 2017 in weights is `r sum(subset(wheel_data, year == 2017)$weight_tons)` in tons. 
@@ -56,6 +56,10 @@ data(brfss_smart2010)
 ```
 
 ```{r}
+health_data = 
+  (brfss_smart2010) %>% 
+  janitor::clean_names() %>%  
+  select(-class, -topic, -question, -sample_size)
 
 ```
 
