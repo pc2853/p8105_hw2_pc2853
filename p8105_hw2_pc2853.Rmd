@@ -84,8 +84,8 @@ sort(table(health_data$locationabbr))[50]
 ggplot(subset(health_data, year == 2002), aes(x = excellent)) + geom_histogram()
 ```
 
-* 
+* Below is the histogram of "excellent" response value of both New York County and Queens County. The dataset is chose only with the element NY - New York County and NY - Queens County in the locationdesc variable. element missing "excellent" value is excluded in the graph. 
 ```{r scatterplot}
-ggplot(subset(health_data, year == c(2002:2010) & locationdesc == c("NY - New York County", "NY - Queens County")), aes(x = year, y = excellent)) + geom_point()
+ggplot(subset(health_data, locationdesc == "NY - New York County"| locationdesc == "NY - Queens County"), aes(x = year, y = excellent)) + geom_point()
 ```
 
