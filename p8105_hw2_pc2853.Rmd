@@ -48,8 +48,16 @@ The dataset "wheel_data" is a manipulated version of the original dataset "Healt
 
 #Prblem 3
 
+```{r p3setup, include=FALSE}
+install.packages("devtools")
+devtools::install_github("p8105/p8105.datasets")
+library(p8105.datasets)
+data(brfss_smart2010)
+```
+
 ```{r}
 
 ```
+
 
 
